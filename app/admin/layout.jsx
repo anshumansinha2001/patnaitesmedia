@@ -1,33 +1,47 @@
 "use client";
 import Sidebar from "@/components/AdminComponents/Sidebar";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import LoadingAdmin from "@/components/AdminComponents/LoadingAdmin";
+import Topbar from "@/components/AdminComponents/Topbar";
 
 export default function AdminLayout({ children }) {
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    // Check if the user is authenticated
-    const isAuthenticated = localStorage.getItem("isAuthenticated");
-    if (isAuthenticated !== "true") {
+    const isAuthenticated = JSON.parse(localStorage.getItem("cache"));
+
+    if (isAuthenticated?.length !== 666) {
+      setIsAdmin(false);
       router.push("/admin-login");
+    } else {
+      setIsAdmin(true);
     }
   }, [router]);
+
   return (
     <>
-      <div className="flex">
-        <ToastContainer theme="dark" position="top-right" />
-        <Sidebar />
-        <div className="flex flex-col w-full">
-          <div className="flex items-center justify-between w-full py-3 max-h-[60px] px-12 border-b border-black">
-            <h3 className="font-medium text-xl ">Admin Panel</h3>
+      {isAdmin ? (
+        <div className="block md:flex">
+          <ToastContainer theme="dark" position="top-right" />
+
+          <div className="flex md:hidden">
+            <Topbar />
           </div>
-          {children}
+
+          <div className="hidden md:block">
+            <Sidebar />
+          </div>
+
+          <div className="flex flex-col w-full">{children}</div>
         </div>
-      </div>
+      ) : (
+        <LoadingAdmin />
+      )}
     </>
   );
 }

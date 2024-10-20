@@ -81,7 +81,7 @@ export async function POST(request) {
 
     // Upload the image to Cloudinary and convert it to WebP format
     const result = await cloudinary.uploader.upload(imagePath, {
-      folder: "patnaitesNews_images", // Optional folder in Cloudinary
+      folder: "patnaitesNews", // Optional folder in Cloudinary
       format: "webp", // Convert to WebP
     });
 

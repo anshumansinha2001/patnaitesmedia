@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { nanoid } from "nanoid";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -12,12 +13,12 @@ export default function Login() {
   const handleAdminLogin = (e) => {
     e.preventDefault();
 
-    const myUsername = process.env.NEXT_PUBLIC_ADMIN_USERNAME;
-    const myPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+    const adminUsername = process.env.NEXT_PUBLIC_ADMIN_USERNAME;
+    const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
 
-    if (username === myUsername && password === myPassword) {
-      // Save login status in localStorage or cookies
-      localStorage.setItem("isAuthenticated", "true");
+    if (username === adminUsername && password === adminPassword) {
+      const unqueId = nanoid(666);
+      localStorage.setItem("cache", JSON.stringify(unqueId));
       router.push("/admin"); // Redirect to the admin page
     } else {
       alert("Invalid Username or Password");

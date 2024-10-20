@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingAdmin from "@/components/AdminComponents/LoadingAdmin";
 import SubsTableItem from "@/components/AdminComponents/SubsTableItem";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -7,13 +8,16 @@ import { toast } from "react-toastify";
 
 const Page = () => {
   const [emails, setEmails] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Fetch email by axios
   const fetchEmails = async () => {
     try {
       const response = await axios.get("/api/email");
       setEmails(response.data.emails);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error fetching emails:", error);
     }
   };
@@ -41,6 +45,10 @@ const Page = () => {
       console.error("Error deleting email:", error);
     }
   };
+
+  if (loading) {
+    return <LoadingAdmin />;
+  }
 
   return (
     <div className="flex-1 pt-5 sm:pt-12 sm:pl-16">

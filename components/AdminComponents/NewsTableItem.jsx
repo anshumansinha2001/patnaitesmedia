@@ -1,5 +1,7 @@
+"use client";
 import moment from "moment";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const NewsTableItem = ({
@@ -9,9 +11,11 @@ const NewsTableItem = ({
   updatedAt,
   author,
   _id,
+  slug,
   deleteArticle,
 }) => {
   const formatDate = moment(updatedAt).format("MMMM Do YYYY");
+  const router = useRouter();
   return (
     <tr className="bg-white border-b text-center">
       <td className="px-6 py-4">
@@ -23,13 +27,21 @@ const NewsTableItem = ({
           alt="blog_icon"
         />
       </td>
-      <td className="px-6 py-4">{title || "Title"}</td>
+      <td className="px-6 py-4">
+        {title.slice(0, 40).concat("...") || "Title"}
+      </td>
       <td className="px-6 py-4">{category || "Category"}</td>
       <td className="px-6 py-4">{formatDate || "Date"}</td>
       <td className="px-6 py-4">{author || "Author"}</td>
       <td
+        onClick={() => router.push(`/admin/update-news/${slug}`)}
+        className="px-6 py-4 cursor-pointer font-extrabold text-blue-600"
+      >
+        Update
+      </td>
+      <td
         onClick={() => deleteArticle(_id)}
-        className="px-6 py-4 cursor-pointer font-extrabold"
+        className="px-6 py-4 cursor-pointer font-extrabold text-red-600"
       >
         X
       </td>

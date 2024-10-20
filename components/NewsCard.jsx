@@ -16,6 +16,7 @@ const NewsCard = ({ slug, image, title, description, category, updatedAt }) => {
           alt={title || "image"}
           width={400}
           height={400}
+          loading="eager"
           className="w-full h-[12rem] object-cover border-b border-black transform transition-transform duration-300 hover:scale-105 hover:cursor-pointer"
         />
       </Link>
@@ -28,7 +29,7 @@ const NewsCard = ({ slug, image, title, description, category, updatedAt }) => {
 
       <div className="p-5">
         <h5 className="mb-2 text-lg font-medium tracking-tight text-gray-900">
-          {title}
+          {title.slice(0, 85).concat("...")}
         </h5>
         <p className="mb-3 text-sm tracking-tight text-grey-700">
           {description
