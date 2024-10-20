@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { FaList, FaPlus } from "react-icons/fa";
+import { MdContactMail, MdReportProblem, MdUnsubscribe } from "react-icons/md";
 
 const Topbar = () => {
   const [open, setOpen] = useState(false);
@@ -19,7 +21,7 @@ const Topbar = () => {
   return (
     <div className="flex sm:hidden flex-col bg-slate-100 w-full shadow-md p-4">
       <nav className="flex justify-between items-center">
-        <Link href="/admin" className="text-xl font-semibold">
+        <Link href="/admin" className="text-2xl font-semibold">
           Admin Panel
         </Link>
         <button
@@ -47,38 +49,42 @@ const Topbar = () => {
           <Link
             onClick={() => setOpen(!open)}
             href="/admin/news-list"
-            className="text-gray-700 hover:text-gray-900"
+            className="flex justify-start items-center gap-2 hover:text-gray-900"
           >
+            <FaList />
             News List
           </Link>
           <Link
             onClick={() => setOpen(!open)}
             href="/admin/create-news"
-            className="text-gray-700 hover:text-gray-900"
+            className="flex justify-start items-center gap-2 hover:text-gray-900"
           >
+            <FaPlus />
             Add News
           </Link>
 
           <Link
             onClick={() => setOpen(!open)}
             href="/admin/contacts"
-            className="text-gray-700 hover:text-gray-900"
+            className="flex justify-start items-center gap-2 hover:text-gray-900"
           >
+            <MdContactMail />
             Contacts
           </Link>
           <Link
             onClick={() => setOpen(!open)}
             href="/admin/reports"
-            className="text-gray-700 hover:text-gray-900"
+            className="flex justify-start items-center gap-2 hover:text-gray-900"
           >
+            <MdReportProblem />
             Reports
           </Link>
           <Link
             onClick={() => setOpen(!open)}
             href="/admin/subscribers"
-            className="text-gray-700 hover:text-gray-900"
+            className="flex justify-start items-center gap-2 hover:text-gray-900"
           >
-            Subscribers
+            <MdUnsubscribe /> Subscribers
           </Link>
           <button
             onClick={() => router.push("/")}

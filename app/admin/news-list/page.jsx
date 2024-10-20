@@ -3,11 +3,13 @@
 import LoadingAdmin from "@/components/AdminComponents/LoadingAdmin";
 import NewsTableItem from "@/components/AdminComponents/NewsTableItem";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { FaFilter } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const Page = () => {
   const [articles, setArticles] = useState([]);
+  const [category, setCategory] = useState("All");
   const [loading, setLoading] = useState(true);
 
   const fetchNews = async () => {
@@ -22,10 +24,17 @@ const Page = () => {
     }
   };
 
+  // Filter articles based on selected category
+  const filteredArticles = useMemo(
+    () =>
+      category === "All"
+        ? articles
+        : articles.filter((article) => article.category === category),
+    [category, articles]
+  );
+
   // Delete article
   const deleteArticle = async (articleId) => {
-    console.log("Deleting article with ID:", articleId);
-
     // Confirmation prompt
     const userConfirmed = window.confirm(
       "Are you sure you want to delete this article?"
@@ -59,6 +68,30 @@ const Page = () => {
     <div className="flex-1 pt-5 px-5 sm:pt-12 sm:pl-16">
       <h1 className="text-xl md:text-3xl font-medium md:font-bold">All News</h1>
       <div className="relative h-[100vh] max-w-[100%] overflow-x-auto mt-4 border border-gray-400 scrollbar-hide">
+        {/* Filter Option */}
+        <div className="flex w-fit m-2 rounded-md bg-black">
+          <div className="p-2">
+            <FaFilter className="text-white h-4 w-4" />
+          </div>
+          <select
+            className="bg-black text-white px-2 py-1 rounded-md outline-none"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option>All</option>
+            {
+              // Create a Set to hold unique categories
+              Array.from(
+                new Set(articles.map((article) => article.category))
+              ).map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))
+            }
+          </select>
+        </div>
+
         <table className="w-full text-sm text-gray-500">
           <thead className="text-sm text-gray-700 text-left uppercase bg-gray-50">
             <tr className="text-center">
@@ -87,7 +120,7 @@ const Page = () => {
           </thead>
 
           <tbody>
-            {articles.map((article) => (
+            {filteredArticles.map((article) => (
               <NewsTableItem
                 key={article._id}
                 {...article}

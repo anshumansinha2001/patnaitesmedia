@@ -7,6 +7,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import LoadingAdmin from "./LoadingAdmin";
 
 const PostPage = ({ post }) => {
   const {
@@ -18,6 +19,8 @@ const PostPage = ({ post }) => {
     watch,
     formState: { errors },
   } = useForm();
+
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const [image, setImage] = useState(null);
@@ -30,7 +33,7 @@ const PostPage = ({ post }) => {
     if (post) {
       setValue("title", post?.title || "");
       setValue("slug", post?.slug || "");
-      setValue("category", post?.category || "");
+      setValue("category", post?.category || "Polotics");
       setValue("author", post?.author || "Patnaites");
       setValue("description", post?.description || "");
       setImage(post?.image || null);
@@ -67,20 +70,21 @@ const PostPage = ({ post }) => {
     formData.append("author", data.author);
 
     try {
-      toast.info(post ? "Updating article..." : "Submitting article...");
-
+      setLoading(true);
       let response;
       if (post) {
         response = await axios.put(
           `${process.env.NEXT_PUBLIC_DOMAIN}/api/article?id=${post._id}`,
           formData
         );
+        setLoading(false);
         toast.success(response.data.message || "Article updated successfully");
       } else {
         response = await axios.post(
           `${process.env.NEXT_PUBLIC_DOMAIN}/api/article`,
           formData
         );
+        setLoading(false);
         toast.success(response.data.message || "Article created successfully");
       }
 
@@ -90,7 +94,7 @@ const PostPage = ({ post }) => {
       router.push("/admin/news-list");
     } catch (error) {
       let errorMessage = "Something went wrong";
-
+      setLoading(false);
       // Check if there's a response from the server
       if (error.response) {
         if (error.response.data?.message) {
@@ -119,6 +123,10 @@ const PostPage = ({ post }) => {
         : URL.createObjectURL(image)
       : assets.upload_area;
   }, [image]);
+
+  if (loading) {
+    return <LoadingAdmin />;
+  }
 
   return (
     <>
@@ -176,20 +184,32 @@ const PostPage = ({ post }) => {
           id="category"
           className="w-full sm:w-[500px] h-10 border border-black rounded-lg px-3"
         >
-          <option>Politics</option>
-          <option>Cities</option>
+          <option>International</option>
           <option>Business</option>
+          <option>Politics</option>
           <option>Education</option>
           <option>Technology</option>
+          <option>Crime</option>
+          <option>Cities</option>
+          <option>Entertainment</option>
           <option>Lifestyle</option>
+          <option>Sports</option>
+          <option>Culture</option>
+          <option>Finance</option>
+          <option>Religion</option>
           <option>Travel</option>
+          <option>Career</option>
           <option>Health</option>
           <option>Weather</option>
-          <option>Entertainment</option>
-          <option>Sports</option>
-          <option>International</option>
-          <option>Finance</option>
-          <option>Crime</option>
+          <option>Food</option>
+          <option>Fashion</option>
+          <option>Innovation</option>
+          <option>Environment</option>
+          <option>Science</option>
+          <option>Economy</option>
+          <option>Media</option>
+          <option>Opinion</option>
+          <option>Military-Defense</option>
         </select>
 
         {/* Author */}
@@ -199,6 +219,7 @@ const PostPage = ({ post }) => {
           className="w-full sm:w-[500px] h-10 border border-black rounded-lg px-3"
           type="text"
           placeholder="Author"
+          defaultValue="Patnaites"
         />
         {errors.author && <p className="text-red-500">Author is required</p>}
 

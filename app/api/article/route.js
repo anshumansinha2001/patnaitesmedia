@@ -155,8 +155,8 @@ export async function PUT(request) {
     const newImage = formData.get("image");
     let newImageUrl = article.image; // Default to existing image URL
 
-    if (newImage) {
-      // Delete old image from Cloudinary
+    if (newImage && newImage.size > 0) {
+      // If a new image is uploaded, proceed to delete the old one and upload the new one
       const oldImageUrl = article.image;
       const oldPublicId = oldImageUrl.split("/").pop().split(".")[0]; // Extract public ID
 
@@ -192,7 +192,7 @@ export async function PUT(request) {
 
       // Upload the new image to Cloudinary and convert it to WebP format
       const result = await cloudinary.uploader.upload(newImagePath, {
-        folder: "patnaitesNews_images", // Optional folder in Cloudinary
+        folder: "patnaitesNews", // Optional folder in Cloudinary
         format: "webp", // Convert to WebP
       });
 

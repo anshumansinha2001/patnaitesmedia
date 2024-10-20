@@ -6,7 +6,7 @@ export default function RTE({ defaultValue, control }) {
   return (
     <div className="w-full">
       <Controller
-        name="content"
+        name="description"
         control={control}
         render={({ field: { onChange } }) => (
           <Editor

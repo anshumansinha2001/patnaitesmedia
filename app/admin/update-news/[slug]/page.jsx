@@ -1,6 +1,7 @@
 "use client";
 import LoadingAdmin from "@/components/AdminComponents/LoadingAdmin";
 import PostPage from "@/components/AdminComponents/PostForm";
+import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
 const UpdatePage = ({ params }) => {
