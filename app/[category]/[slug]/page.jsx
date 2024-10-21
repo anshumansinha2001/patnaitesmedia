@@ -4,13 +4,16 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import parse from "html-react-parser";
-import SocialShare from "@/components/SocialShare";
-import PageNotFound from "@/components/PageNotFound";
-import ReportBtn from "@/components/ReportBtn";
+import SocialShare from "@/components/ArticleComponents/SocialShare";
+import PageNotFound from "@/components/ArticleComponents/PageNotFound";
+import ReportBtn from "@/components/ArticleComponents/ReportBtn";
+import AdsBetweenCard from "@/components/AdsComponents/AdsBetweenCard";
+import AdsBottomCard from "@/components/AdsComponents/AdsBottomCard";
 
 const Page = async ({ params }) => {
   let article = null;
 
+  // Fetch the article from the API
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_DOMAIN}/api/article`,
@@ -32,9 +35,28 @@ const Page = async ({ params }) => {
       </p>
     );
   }
-  const shareUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/${article.category}/${article.slug}`;
+
+  // TODO: Fetch betweend ads from API
+
+  const shareUrl = `${
+    process.env.NEXT_PUBLIC_DOMAIN
+  }/${article.category.toLowerCase()}/${article.slug}`;
 
   const formatDate = moment(article.updatedAt).format("MMMM Do YYYY");
+
+  // Split the description into three parts
+  const splitDescription = (description, wordCount) => {
+    const words = description.split(" ");
+    const firstPart = words.slice(0, wordCount).join(" ");
+    const secondPart = words.slice(wordCount, wordCount + 200).join(" ");
+    const thirdPart = words.slice(wordCount + 150).join(" ");
+    return { firstPart, secondPart, thirdPart };
+  };
+
+  const { firstPart, secondPart, thirdPart } = splitDescription(
+    article.description,
+    250
+  );
 
   return (
     <>
@@ -82,9 +104,25 @@ const Page = async ({ params }) => {
           </div>
         </div>
 
-        <div>{parse(article.description)}</div>
+        <div>{parse(firstPart)}</div>
+        <AdsBetweenCard
+          image={
+            "https://th.bing.com/th/id/OIP.XCn-mxd3F6sEkGJxW-3wZQHaE8?w=272&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+          }
+          link={
+            "https://th.bing.com/th/id/OIP.XCn-mxd3F6sEkGJxW-3wZQHaE8?w=272&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+          }
+        />
+        <div>{parse(secondPart)}</div>
+        <AdsBetweenCard
+          image={
+            "https://th.bing.com/th/id/OIP.XCn-mxd3F6sEkGJxW-3wZQHaE8?w=272&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+          }
+          link={""}
+        />
+        <div>{parse(thirdPart)}</div>
       </div>
-
+      <AdsBottomCard />
       <Footer />
     </>
   );
