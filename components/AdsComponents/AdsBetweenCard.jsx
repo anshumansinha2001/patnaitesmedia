@@ -8,8 +8,8 @@ const AdsBetweenCard = ({ image, link }) => {
       <Link href={link ? link : "#"} target={link ? "_blank" : "_self"}>
         <Image
           src={image}
-          width={200}
-          height={200}
+          width={300}
+          height={300}
           alt="Failed to load image!"
           className="h-56 md:h-80 xl:h-96 w-screen"
         />

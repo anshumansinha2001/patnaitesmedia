@@ -7,7 +7,7 @@ const page = () => {
       <h1 className="text-3xl font-bold text-center my-20  underline underline-offset-4">
         Create Bottom Ads
       </h1>
-      <AdminAdsPost />
+      <AdminAdsPost location="bottom-ads" route="bottom-ad" />
     </div>
   );
 };

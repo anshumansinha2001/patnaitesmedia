@@ -36,7 +36,20 @@ const Page = async ({ params }) => {
     );
   }
 
-  // TODO: Fetch betweend ads from API
+  //  Fetch betweend ads from API
+  //  Use an absolute URL for fetching ads to avoid any issues during SSR.
+  let betweensAds = null;
+
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/between-ad`
+    );
+
+    console.log(response.data.ads[0]);
+    betweensAds = response.data.ads;
+  } catch (error) {
+    console.log(error);
+  }
 
   const shareUrl = `${
     process.env.NEXT_PUBLIC_DOMAIN
@@ -105,21 +118,19 @@ const Page = async ({ params }) => {
         </div>
 
         <div>{parse(firstPart)}</div>
-        <AdsBetweenCard
-          image={
-            "https://th.bing.com/th/id/OIP.XCn-mxd3F6sEkGJxW-3wZQHaE8?w=272&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7"
-          }
-          link={
-            "https://th.bing.com/th/id/OIP.XCn-mxd3F6sEkGJxW-3wZQHaE8?w=272&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7"
-          }
-        />
+        {betweensAds?.[0] && (
+          <AdsBetweenCard
+            image={betweensAds[0].image}
+            link={betweensAds[0].link}
+          />
+        )}
         <div>{parse(secondPart)}</div>
-        <AdsBetweenCard
-          image={
-            "https://th.bing.com/th/id/OIP.XCn-mxd3F6sEkGJxW-3wZQHaE8?w=272&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7"
-          }
-          link={""}
-        />
+        {betweensAds?.[1] && (
+          <AdsBetweenCard
+            image={betweensAds[1].image}
+            link={betweensAds[1].link}
+          />
+        )}
         <div>{parse(thirdPart)}</div>
       </div>
       <AdsBottomCard />
@@ -146,7 +157,7 @@ export async function generateMetadata({ params }) {
 
   if (!article) {
     return {
-      title: "Post not found",
+      title: "Post not found | Patnaites",
       description: "The article you are looking for does not exist.",
     };
   }
@@ -194,6 +205,11 @@ export async function generateMetadata({ params }) {
           alt: metaTitle,
         },
       ],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
     },
   };
 }

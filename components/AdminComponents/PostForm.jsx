@@ -138,7 +138,7 @@ const PostPage = ({ post }) => {
         <p className="text-xl">Upload thumbnail</p>
         <label htmlFor="image">
           <Image
-            className="mt-4"
+            className="mt-4 w-full md:w-[400px] h-[200px] hover:cursor-pointer"
             src={imagePreview}
             alt="upload_area"
             width={200}

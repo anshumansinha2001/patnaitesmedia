@@ -35,8 +35,8 @@ const AdsBottomCard = () => {
               <Image
                 src={advertisement.image}
                 alt="Failed to load image!"
-                width={200}
-                height={200}
+                width={400}
+                height={300}
                 className={`${
                   bottomAds.length === 1
                     ? "w-96 h-64"

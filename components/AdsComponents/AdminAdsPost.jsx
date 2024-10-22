@@ -8,7 +8,7 @@ import { assets } from "@/assets/assets";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const AdminAdsPost = ({ ad }) => {
+const AdminAdsPost = ({ ad, location, route }) => {
   const { register, handleSubmit, reset, setValue } = useForm();
 
   const [loading, setLoading] = useState(false);
@@ -41,7 +41,7 @@ const AdminAdsPost = ({ ad }) => {
 
       if (ad) {
         // Update existing ad if 'ad' object is provided
-        response = await axios.put(`/api/bottom-ad?id=${ad._id}`, formData, {
+        response = await axios.put(`/api/${route}?id=${ad._id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -49,20 +49,28 @@ const AdminAdsPost = ({ ad }) => {
         toast.info("Ad updated successfully");
       } else {
         // Create new ad if 'ad' is not provided
-        response = await axios.post("/api/bottom-ad", formData, {
+        response = await axios.post(`/api/${route}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-        toast.success("Ad created successfully");
+      }
+      // Check if backend sent an error message about document limit
+      if (response?.data?.success === false) {
+        throw new Error(response.data.message); // Throw the error to be caught in catch block
       }
 
+      toast.success("Ad created successfully");
       reset();
       setImage(null);
 
-      router.push("/admin/ads");
+      router.push(`/admin/ads/${location}`);
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to submit ad.");
+      toast.error(
+        error?.response?.data?.message ||
+          error.message ||
+          "Failed to submit ad."
+      );
       console.log(error);
     } finally {
       setLoading(false);
@@ -89,11 +97,11 @@ const AdminAdsPost = ({ ad }) => {
         <p className="text-xl text-center">Upload Ad Image</p>
         <label htmlFor="image">
           <Image
-            className="mt-4 w-[350px]  hover:cursor-pointer"
+            className="mt-4 w-[350px] h-[200px] hover:cursor-pointer"
             src={imagePreview}
             alt="upload_area"
-            width={200}
-            height={300}
+            width={500}
+            height={400}
           />
         </label>
         <input

@@ -67,33 +67,34 @@ const Page = () => {
   return (
     <div className="flex-1 pt-5 px-5 sm:pt-12 sm:pl-16">
       <h1 className="text-xl md:text-3xl font-medium md:font-bold">All News</h1>
-      <div className="relative h-[100vh] max-w-[100%] overflow-x-auto mt-4 border border-gray-400 scrollbar-hide">
-        {/* Filter Option */}
-        <div className="flex w-fit m-2 rounded-md bg-black">
-          <div className="p-2">
-            <FaFilter className="text-white h-4 w-4" />
-          </div>
-          <select
-            className="bg-black text-white px-2 py-1 rounded-md outline-none"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option>All</option>
-            {
-              // Create a Set to hold unique categories
-              Array.from(
-                new Set(articles.map((article) => article.category))
-              ).map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))
-            }
-          </select>
-        </div>
 
+      {/* Filter Option */}
+      <div className="flex w-fit my-2 rounded-md bg-black">
+        <div className="p-2">
+          <FaFilter className="text-white h-4 w-4" />
+        </div>
+        <select
+          className="bg-black text-white px-2 py-1 rounded-md outline-none"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option>All</option>
+          {
+            // Create a Set to hold unique categories
+            Array.from(
+              new Set(articles.map((article) => article.category))
+            ).map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))
+          }
+        </select>
+      </div>
+
+      <div className="relative max-h-[80vh] max-w-[100%] overflow-x-auto mt-4 shadow-lg rounded-lg scrollbar-hide">
         <table className="w-full text-sm text-gray-500">
-          <thead className="text-sm text-gray-700 text-left uppercase bg-gray-50">
+          <thead className="text-sm text-gray-700 text-left uppercase bg-gray-200 sticky top-0">
             <tr className="text-center">
               <th scope="col" className="px-6 py-3">
                 Image
@@ -119,7 +120,7 @@ const Page = () => {
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className="">
             {filteredArticles.map((article) => (
               <NewsTableItem
                 key={article._id}
