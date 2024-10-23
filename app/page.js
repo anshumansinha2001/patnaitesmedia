@@ -1,5 +1,4 @@
 "use client";
-import AdsBottomCard from "@/components/AdsComponents/AdsBottomCard";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import NewsList from "@/components/NewsList";
@@ -13,7 +12,6 @@ export default function Home() {
         <ToastContainer theme="dark" position="top-right" />
         <Header />
         <NewsList />
-        <AdsBottomCard />
       </div>
       <Footer />
     </>

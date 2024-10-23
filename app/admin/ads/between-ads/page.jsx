@@ -102,7 +102,7 @@ const Page = () => {
                   </td>
 
                   {/* Link */}
-                  <td className="px-6 py-4">{ad.link || "unknown"}</td>
+                  <td className="px-6 py-4">{ad.link || "N/A"}</td>
 
                   {/* Date */}
                   <td className="px-6 py-4">

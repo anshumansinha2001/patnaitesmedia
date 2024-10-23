@@ -88,10 +88,10 @@ const PostPage = ({ post }) => {
         toast.success(response.data.message || "Article created successfully");
       }
 
+      router.push("/admin/news-list");
       // Reset the form and clear image state
       reset();
       setImage(null);
-      router.push("/admin/news-list");
     } catch (error) {
       let errorMessage = "Something went wrong";
       setLoading(false);

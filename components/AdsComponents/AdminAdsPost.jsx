@@ -54,17 +54,16 @@ const AdminAdsPost = ({ ad, location, route }) => {
             "Content-Type": "multipart/form-data",
           },
         });
+        toast.success("Ad created successfully");
       }
       // Check if backend sent an error message about document limit
       if (response?.data?.success === false) {
         throw new Error(response.data.message); // Throw the error to be caught in catch block
       }
 
-      toast.success("Ad created successfully");
+      router.push(`/admin/ads/${location}`);
       reset();
       setImage(null);
-
-      router.push(`/admin/ads/${location}`);
     } catch (error) {
       toast.error(
         error?.response?.data?.message ||

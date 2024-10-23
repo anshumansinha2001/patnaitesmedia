@@ -1,22 +1,31 @@
 "use client";
 
+import LoadingAdmin from "@/components/AdminComponents/LoadingAdmin";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 const AdsDashboard = () => {
   const [betweenAds, setBetweenAds] = useState([]);
   const [bottomAds, setBottomAds] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Fetch between ads
   const fetchBetweenAds = async () => {
     try {
       const response = await axios.get("/api/between-ad");
+
       setBetweenAds(response.data.ads);
+
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
 
+  if (loading) {
+    return <LoadingAdmin />;
+  }
   // Fetch bottom ads
   const fetchBottomAds = async () => {
     try {
