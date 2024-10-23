@@ -45,7 +45,6 @@ const Page = async ({ params }) => {
       `${process.env.NEXT_PUBLIC_DOMAIN}/api/between-ad`
     );
 
-    console.log(response.data.ads[0]);
     betweensAds = response.data.ads;
   } catch (error) {
     console.log(error);

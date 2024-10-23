@@ -13,19 +13,12 @@ const AdsDashboard = () => {
   const fetchBetweenAds = async () => {
     try {
       const response = await axios.get("/api/between-ad");
-
       setBetweenAds(response.data.ads);
-
-      setLoading(false);
     } catch (error) {
-      setLoading(false);
       console.log(error);
     }
   };
 
-  if (loading) {
-    return <LoadingAdmin />;
-  }
   // Fetch bottom ads
   const fetchBottomAds = async () => {
     try {
@@ -37,14 +30,21 @@ const AdsDashboard = () => {
   };
 
   useEffect(() => {
-    fetchBetweenAds();
-    fetchBottomAds();
+    const fetchAdsData = async () => {
+      await fetchBetweenAds();
+      await fetchBottomAds();
+      setLoading(false);
+    };
+    fetchAdsData();
   }, []);
+
+  if (loading) {
+    return <LoadingAdmin />;
+  }
 
   return (
     <div className="w-full px-4">
       <h1 className="text-3xl font-bold text-center my-20">Advertisements</h1>
-      {/* TODO: Add content here */}
       <div className="flex gap-5 font-medium justify-around items-center">
         <div className="text-center space-y-4">
           <h2 className="text-xl">Total Between Ads:</h2>
