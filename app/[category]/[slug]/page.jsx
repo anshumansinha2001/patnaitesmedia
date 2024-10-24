@@ -9,7 +9,6 @@ import PageNotFound from "@/components/ArticleComponents/PageNotFound";
 import ReportBtn from "@/components/ArticleComponents/ReportBtn";
 import AdsBetweenCard from "@/components/AdsComponents/AdsBetweenCard";
 import AdsBottomCard from "@/components/AdsComponents/AdsBottomCard";
-import { NextSeo } from "next-seo"; // Import Next SEO
 
 const Page = async ({ params }) => {
   let article = null;
@@ -71,8 +70,8 @@ const Page = async ({ params }) => {
     250
   );
 
-  // Schema.org markup
-  const schemaData = {
+  // Schema Markup
+  const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
@@ -83,25 +82,21 @@ const Page = async ({ params }) => {
     },
     datePublished: article.createdAt,
     dateModified: article.updatedAt,
-    articleBody: article.description,
+    articleSection: article.category,
+    description: article.description.replace(/(<([^>]+)>)/gi, ""),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${
+        process.env.NEXT_PUBLIC_DOMAIN
+      }/${article.category.toLowerCase()}/${article.slug}`,
+    },
   };
 
   return (
     <>
-      <NextSeo
-        title={article.title}
-        description={article.description.replace(/(<([^>]+)>)/gi, "")}
-        openGraph={{
-          url: shareUrl,
-          title: article.title,
-          description: article.description.replace(/(<([^>]+)>)/gi, ""),
-          images: [
-            {
-              url: article.image,
-              alt: article.title,
-            },
-          ],
-        }}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
       />
 
       <div className="bg-gray-100 py-5 px-5 md:px-12 lg:px-28">
@@ -196,7 +191,10 @@ export async function generateMetadata({ params }) {
   // Construct metadata for the found article
   const metaTitle = article.title || "Patnaites News";
   const metaDescription =
-    article.description.replace(/(<([^>]+)>)/gi, "") ||
+    article.description
+      .replace(/(<([^>]+)>)/gi, "")
+      .slice(0, 200)
+      .concat("...") ||
     "Stay updated with the latest news and events in Patna.";
   const imageUrl = article.image || "/favicon.ico";
   const canonicalUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/${
