@@ -9,6 +9,7 @@ import PageNotFound from "@/components/ArticleComponents/PageNotFound";
 import ReportBtn from "@/components/ArticleComponents/ReportBtn";
 import AdsBetweenCard from "@/components/AdsComponents/AdsBetweenCard";
 import AdsBottomCard from "@/components/AdsComponents/AdsBottomCard";
+import { NextSeo } from "next-seo"; // Import Next SEO
 
 const Page = async ({ params }) => {
   let article = null;
@@ -70,8 +71,39 @@ const Page = async ({ params }) => {
     250
   );
 
+  // Schema.org markup
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    image: article.image,
+    author: {
+      "@type": "Person",
+      name: article.author,
+    },
+    datePublished: article.createdAt,
+    dateModified: article.updatedAt,
+    articleBody: article.description,
+  };
+
   return (
     <>
+      <NextSeo
+        title={article.title}
+        description={article.description.replace(/(<([^>]+)>)/gi, "")}
+        openGraph={{
+          url: shareUrl,
+          title: article.title,
+          description: article.description.replace(/(<([^>]+)>)/gi, ""),
+          images: [
+            {
+              url: article.image,
+              alt: article.title,
+            },
+          ],
+        }}
+      />
+
       <div className="bg-gray-100 py-5 px-5 md:px-12 lg:px-28">
         <div className="flex justify-between items-center">
           <Link

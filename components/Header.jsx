@@ -49,7 +49,7 @@ const Header = () => {
 
         {/* Contact Us Link */}
         <Link
-          href="/contact-us"
+          href="/contact"
           className="flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 border border-black border-solid shadow-[-7px_7px_0px_#ff0000] text-xs sm:text-base active:bg-black active:text-white"
         >
           Contact Us <Image src={assets.arrow} alt="arrow" />

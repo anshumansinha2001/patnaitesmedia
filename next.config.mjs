@@ -9,6 +9,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/sitemap.xml", // When someone visits /sitemap.xml
+        destination: "/sitemap", // Serve the sitemap from the app/sitemap/route.js
+      },
+    ];
+  },
 };
 
 export default nextConfig;

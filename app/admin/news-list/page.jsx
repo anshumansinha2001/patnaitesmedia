@@ -94,7 +94,7 @@ const Page = () => {
 
       <div className="relative max-h-[80vh] max-w-[100%] overflow-x-auto mt-4 shadow-lg rounded-lg scrollbar-hide">
         <table className="w-full text-sm text-gray-500">
-          <thead className="text-sm text-gray-700 text-left uppercase bg-gray-200 sticky top-0">
+          <thead className="text-sm text-gray-700 text-left uppercase bg-gray-200 sticky top-0 z-30">
             <tr className="text-center">
               <th scope="col" className="px-6 py-3">
                 Image
