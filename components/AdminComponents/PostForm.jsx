@@ -33,7 +33,7 @@ const PostPage = ({ post }) => {
     if (post) {
       setValue("title", post?.title || "");
       setValue("slug", post?.slug || "");
-      setValue("category", post?.category || "Polotics");
+      setValue("category", post?.category);
       setValue("author", post?.author || "Patnaites");
       setValue("description", post?.description || "");
       setImage(post?.image || null);
@@ -116,6 +116,34 @@ const PostPage = ({ post }) => {
     }
   };
 
+  // Delete article
+  const deletePost = async (articleId) => {
+    if (!window.confirm("Are you sure you want to delete this article?"))
+      return;
+
+    try {
+      setLoading(true);
+      await axios.delete(`${process.env.NEXT_PUBLIC_DOMAIN}/api/article`, {
+        params: { id: articleId },
+      });
+
+      setLoading(false);
+      toast.info("Article deleted successfully!");
+      router.push("/admin/news-list");
+
+      // Get Report Id from session storage and delete it
+      const reportId = sessionStorage.getItem("reportId");
+      if (reportId) {
+        await axios.delete(`/api/report?id=${reportId}`);
+        sessionStorage.removeItem("reportId");
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("Failed to delete article.");
+      console.error("Error deleting article:", error.message);
+    }
+  };
+
   const imagePreview = useMemo(() => {
     return image
       ? typeof image === "string"
@@ -132,7 +160,7 @@ const PostPage = ({ post }) => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="pt-5 px-5 sm:pt-12 sm:pl-16"
+        className="pt-5 px-5 sm:pt-12 sm:pl-16 overflow-auto max-h-screen"
       >
         {/* Thumbnail */}
         <p className="text-xl">Upload thumbnail</p>
@@ -228,12 +256,24 @@ const PostPage = ({ post }) => {
         <RTE defaultValue={post?.description} control={control} />
 
         {/* Submit */}
-        <button
-          className="w-full sm:w-[500px] h-10 bg-black text-white rounded-lg px-3 mt-4 active:bg-blue-600 active:text-white"
-          type="submit"
-        >
-          Submit
-        </button>
+        <div className="flex flex-col md:flex-row gap-3 my-6">
+          <button
+            className="w-full sm:w-[500px] h-10 bg-black text-white rounded-lg px-3 active:bg-blue-600 active:text-white"
+            type="submit"
+          >
+            Submit
+          </button>
+
+          {post && (
+            <button
+              className="w-full sm:w-[500px] h-10 bg-red-500 text-white rounded-lg px-3 active:bg-blue-600 active:text-white"
+              type="button"
+              onClick={() => deletePost(post._id)}
+            >
+              Delete
+            </button>
+          )}
+        </div>
       </form>
     </>
   );
