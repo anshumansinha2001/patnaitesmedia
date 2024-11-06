@@ -48,7 +48,6 @@ const Report = ({ params }) => {
       );
 
       if (response.data.success) {
-        toast.success("Report submitted successfully");
         setSubmitted(true);
       } else {
         toast.error(response.data.message || "Error submitting report");

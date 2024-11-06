@@ -70,7 +70,7 @@ const AdminReports = () => {
 
   return (
     <div className="max-h-screen px-0 md:px-28 mx-auto overflow-auto">
-      <h1 className="text-3xl font-bold my-6 text-center text-gray-800">
+      <h1 className="text-3xl font-bold my-6 text-center text-gray-800 underline underline-offset-4">
         All Reports
       </h1>
 
@@ -78,7 +78,7 @@ const AdminReports = () => {
         {reports.map((report) => (
           <div
             key={report._id}
-            className="bg-white max-w-[400px] rounded-lg shadow-md m-2 md:m-4 p-2 md:p-4"
+            className="bg-white w-[400px] rounded-lg shadow-md m-2 md:m-4 p-2 md:p-4"
           >
             <h2 className="text-xl font-semibold mb-2">
               {report.articleTitle}

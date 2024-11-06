@@ -160,7 +160,7 @@ const PostPage = ({ post }) => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="pt-5 px-5 sm:pt-12 sm:pl-16 overflow-auto max-h-screen"
+        className="pt-5 px-5 sm:pt-12 sm:pl-16 overflow-auto max-h-full md:max-h-screen"
       >
         {/* Thumbnail */}
         <p className="text-xl">Upload thumbnail</p>
