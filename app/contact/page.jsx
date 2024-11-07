@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -11,16 +12,32 @@ const Contact = () => {
   });
 
   const [success, setSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccess(true);
-    // Handle form submission logic here
-    console.log("Form Data Submitted:", formData);
+    setIsSubmitting(true);
+
+    try {
+      const response = await axios.post("/api/contact", formData, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.data.success) {
+        setSuccess(true);
+      } else {
+        toast.error(response.data.message || "Error submitting contact");
+      }
+    } catch (error) {
+      console.error("Error submitting contact:", error);
+      toast.error("Failed to submit contact");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -109,7 +126,7 @@ const Contact = () => {
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Send Message
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
             <div className="bg-black hover:bg-gray-700 text-white font-bold  py-2 px-4 rounded">
               <Link href="/">Return to Home</Link>

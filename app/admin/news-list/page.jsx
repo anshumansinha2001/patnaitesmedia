@@ -66,7 +66,9 @@ const Page = () => {
 
   return (
     <div className="flex-1 pt-5 px-5 sm:pt-12 sm:pl-16">
-      <h1 className="text-xl md:text-3xl font-medium md:font-bold">All News</h1>
+      <h1 className="text-2xl md:text-3xl font-medium md:font-bold text-center">
+        All News ({articles.length})
+      </h1>
 
       {/* Filter Option */}
       <div className="flex w-fit my-2 rounded-md bg-black">
