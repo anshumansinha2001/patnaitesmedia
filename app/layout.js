@@ -1,5 +1,6 @@
 import { Outfit } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -43,6 +44,17 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="canonical" href="https://patnaitesnews.vercel.app" />
         {/* Add any additional head elements or links here */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-M9QR7ZG9XE"
+        ></Script>
+        <Script id="google-analytics">
+          {` window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-M9QR7ZG9XE');`}
+        </Script>
       </head>
       <body className={outfit.className}>{children}</body>
     </html>
