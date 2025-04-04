@@ -43,7 +43,12 @@ export default function RootLayout({ children }) {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="canonical" href="https://patnaitesnews.vercel.app" />
-        {/* Add any additional head elements or links here */}
+        {/* Google Search Console */}
+        <meta
+          name="google-site-verification"
+          content="QaqOGH7WPK7N16OBHqHvFIlukX8sKOFEt2Wd822Bh7k"
+        />
+        {/* Google Analytics Code */}
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-M9QR7ZG9XE"
