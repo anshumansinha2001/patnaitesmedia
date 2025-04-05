@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import axios from "axios";
 import moment from "moment";
 import Image from "next/image";
+import { assets } from "@/assets/assets";
 import Link from "next/link";
 import parse from "html-react-parser";
 import SocialShare from "@/components/ArticleComponents/SocialShare";
@@ -101,12 +102,19 @@ const Page = async ({ params }) => {
 
       <div className="bg-gray-100 py-5 px-5 md:px-12 lg:px-28">
         <div className="flex justify-between items-center">
+          {/* Logo */}
           <Link
             href="/"
-            className="text-lg md:text-2xl font-medium text-black font-serif tracking-widest uppercase 
-            hover:cursor-pointer underline underline-offset-4 decoration-4 decoration-dotted"
+            className="flex gap-1 text-sm md:text-2xl font-medium text-black font-serif tracking-widest uppercase 
+     hover:cursor-pointer underline underline-offset-4
+     decoration-4 decoration-dotted"
           >
-            Patnaites News
+            Patnaites Media
+            <Image
+              src={assets.blue_tick}
+              className="w-6 md:w-8"
+              alt="blue tick"
+            />
           </Link>
           <ReportBtn slug={article.slug} />
         </div>
@@ -189,7 +197,7 @@ export async function generateMetadata({ params }) {
   }
 
   // Construct metadata for the found article
-  const metaTitle = article.title || "Patnaites News";
+  const metaTitle = article.title || "Patnaites Media";
   const metaDescription =
     article.description
       .replace(/(<([^>]+)>)/gi, "")

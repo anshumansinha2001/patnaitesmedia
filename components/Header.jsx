@@ -40,11 +40,16 @@ const Header = () => {
         {/* Logo */}
         <Link
           href="/"
-          className="text-lg md:text-2xl font-medium text-black font-serif tracking-widest uppercase 
+          className="flex gap-1 text-sm md:text-2xl font-medium text-black font-serif tracking-widest uppercase 
      hover:cursor-pointer underline underline-offset-4
      decoration-4 decoration-dotted"
         >
-          Patnaites News
+          Patnaites Media
+          <Image
+            src={assets.blue_tick}
+            className="w-6 md:w-8"
+            alt="blue tick"
+          />
         </Link>
 
         {/* Contact Us Link */}
@@ -55,16 +60,16 @@ const Header = () => {
           Contact Us <Image src={assets.arrow} alt="arrow" />
         </Link>
       </div>
-      <div className="text-center my-8">
+      <div className="text-center mt-10">
         <h1 className="text-3xl sm:text-5xl font-medium">Latest News</h1>
-        <p className="mt-10 max-w-[740px] mx-auto text-xs sm:text-base">
+        <p className="mt-3 md:mt-10 max-w-[740px] mx-auto text-xs sm:text-base">
           Stay informed with the most up-to-date and reliable news on local and
           global events.
         </p>
         {/* NewsLetter */}
         <form
           onSubmit={onSubmitHandler}
-          className="flex justify-between max-w-[500px] scale-75 sm:scale-100 mt-10 mx-auto border border-black shadow-[-7px_7px_0px_#ff0000]"
+          className="flex justify-between max-w-[500px] scale-75 sm:scale-100 mt-3 md:mt-10 mx-auto border border-black shadow-[-7px_7px_0px_#ff0000]"
           action=""
         >
           <input

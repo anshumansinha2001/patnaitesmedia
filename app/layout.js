@@ -9,13 +9,13 @@ const outfit = Outfit({
 
 // Enhanced metadata for SEO
 export const metadata = {
-  title: "Patnaites News",
+  title: "Patnaites Media",
   description:
     "Stay updated with the latest news and events happening in Patna. Explore articles, interviews, and stories that matter to Patnaites.",
   keywords: "Patna, news, local news, Patnaites, events, articles",
   author: "Patnaites",
   openGraph: {
-    title: "Patnaites News",
+    title: "Patnaites Media",
     description:
       "A news portal for Patnaites. Get the latest updates and insights.",
     url: `${process.env.NEXT_PUBLIC_DOMAIN}`,
@@ -23,14 +23,14 @@ export const metadata = {
     images: [
       {
         url: `${process.env.NEXT_PUBLIC_DOMAIN}/favicon.ico`,
-        alt: "Patnaites News Image",
+        alt: "Patnaites Media Image",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     site: "@your_twitter_handle",
-    title: "Patnaites News",
+    title: "Patnaites Media",
     description: "A news portal for Patnaites.",
     image: `${process.env.NEXT_PUBLIC_DOMAIN}/favicon.ico`,
   },
@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://patnaitesnews.vercel.app" />
+        <link rel="canonical" href="https://patnaitesmedia.com" />
         {/* Google Search Console */}
         <meta
           name="google-site-verification"

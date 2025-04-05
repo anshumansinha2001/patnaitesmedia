@@ -46,7 +46,7 @@ const Contact = () => {
       <p className="text-sm md:text-base text-center my-6 max-w-[500px]">
         {success
           ? "We’ve successfully received your message and our team is already reviewing it. Your inquiry is important to us. Expect a response shortly!"
-          : "At Patnaites News, we keep you updated! Reach out to us for brand promotions or advertisements."}
+          : "At Patnaites Media, we keep you updated! Reach out to us for brand promotions or advertisements."}
       </p>
       {success ? (
         <div

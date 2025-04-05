@@ -22,7 +22,7 @@ const Sidebar = () => {
           className="text-lg md:text-2xl font-medium font-serif tracking-widest uppercase 
      hover:cursor-pointer"
         >
-          Patnaites News
+          Patnaites Media
         </Link>
         <div>Admin Panel</div>
       </div>
