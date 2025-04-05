@@ -40,7 +40,7 @@ const Header = () => {
         {/* Logo */}
         <Link
           href="/"
-          className="flex gap-1 text-sm md:text-2xl font-medium text-black font-serif tracking-widest uppercase 
+          className="flex gap-1 text-md md:text-2xl font-medium text-black font-serif tracking-widest uppercase 
      hover:cursor-pointer underline underline-offset-4
      decoration-4 decoration-dotted"
         >

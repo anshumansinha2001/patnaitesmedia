@@ -9,7 +9,7 @@ export default function Admin() {
         Welcome to the Admin Dashboard
       </p>
       <p className="text-center text-sm md:text:md text-gray-500">
-        Lets make Patnaitesnews better!
+        Lets make Patnaites Media better!
       </p>
     </div>
   );
