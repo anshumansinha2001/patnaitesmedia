@@ -34,19 +34,21 @@ const PostPage = ({ post }) => {
       setValue("title", post?.title || "");
       setValue("slug", post?.slug || "");
       setValue("category", post?.category);
-      setValue("author", post?.author || "Patnaites");
+      setValue("author", post?.author || "Patnaites Media");
       setValue("description", post?.description || "");
       setImage(post?.image || null);
     }
   }, [post, setValue]);
 
   const generateSlug = useCallback((title) => {
-    return title
+    const slug = title
       .toLowerCase()
       .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
       .trim()
       .replace(/\s+/g, "-") // Replace spaces with hyphens
       .substring(0, 50); // Limit length to 50 characters
+
+    return slug.endsWith("-") ? slug.slice(0, -1) : slug; // Remove trailing hyphen
   }, []);
 
   useEffect(() => {
@@ -212,19 +214,20 @@ const PostPage = ({ post }) => {
           id="category"
           className="w-full sm:w-[500px] h-10 border border-black rounded-lg px-3"
         >
+          <option>Trending</option>
           <option>International</option>
+          <option>City</option>
           <option>Business</option>
           <option>Politics</option>
           <option>Education</option>
           <option>Technology</option>
+          <option>Religion</option>
           <option>Crime</option>
-          <option>Cities</option>
           <option>Entertainment</option>
           <option>Lifestyle</option>
           <option>Sports</option>
           <option>Culture</option>
           <option>Finance</option>
-          <option>Religion</option>
           <option>Travel</option>
           <option>Career</option>
           <option>Health</option>
@@ -247,7 +250,7 @@ const PostPage = ({ post }) => {
           className="w-full sm:w-[500px] h-10 border border-black rounded-lg px-3"
           type="text"
           placeholder="Author"
-          defaultValue="Patnaites"
+          defaultValue="Patnaites Media"
         />
         {errors.author && <p className="text-red-500">Author is required</p>}
 

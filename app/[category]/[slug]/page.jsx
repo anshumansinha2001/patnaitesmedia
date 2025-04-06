@@ -197,17 +197,18 @@ export async function generateMetadata({ params }) {
   }
 
   // Construct metadata for the found article
-  const metaTitle = article.title || "Patnaites Media";
+  const metaTitle =
+    article.title.slice(0, 57).concat("...") || "Patnaites Media";
   const metaDescription =
     article.description
       .replace(/(<([^>]+)>)/gi, "")
-      .slice(0, 200)
+      .slice(0, 127)
       .concat("...") ||
     "Stay updated with the latest news and events in Patna.";
   const imageUrl = article.image || "/favicon.ico";
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/${
-    article.category || "uncategorized"
-  }/${article.slug}`;
+  const canonicalUrl = `${
+    process.env.NEXT_PUBLIC_DOMAIN
+  }/${article.category.toLowerCase()}/${article.slug}`;
 
   return {
     title: metaTitle,
@@ -217,9 +218,6 @@ export async function generateMetadata({ params }) {
       url: canonicalUrl,
       title: metaTitle,
       description: metaDescription,
-      alternates: {
-        canonical: canonicalUrl,
-      },
       images: [
         {
           url: imageUrl,
@@ -242,6 +240,9 @@ export async function generateMetadata({ params }) {
           alt: metaTitle,
         },
       ],
+    },
+    alternates: {
+      canonical: canonicalUrl,
     },
     robots: {
       index: true,

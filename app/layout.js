@@ -9,13 +9,14 @@ const outfit = Outfit({
 
 // Enhanced metadata for SEO
 export const metadata = {
-  title: "Patnaites Media",
+  title: "Patnaites Media | Bring latest news from Patna, Bihar",
   description:
-    "Stay updated with the latest news and events happening in Patna. Explore articles, interviews, and stories that matter to Patnaites.",
-  keywords: "Patna, news, local news, Patnaites, events, articles",
+    "Patnaites Media offers the latest news from Patna and Bihar, covering local updates, city happenings, and national news since 2016. Stay updated with us!",
+  keywords:
+    "patnaites, patnaites media, patna news, patna city, patnaite, news in bihar, patna bihar",
   author: "Patnaites",
   openGraph: {
-    title: "Patnaites Media",
+    title: "Patnaites Media | ",
     description:
       "A news portal for Patnaites. Get the latest updates and insights.",
     url: `${process.env.NEXT_PUBLIC_DOMAIN}`,
@@ -34,6 +35,9 @@ export const metadata = {
     description: "A news portal for Patnaites.",
     image: `${process.env.NEXT_PUBLIC_DOMAIN}/favicon.ico`,
   },
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_DOMAIN}`,
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -42,7 +46,6 @@ export default function RootLayout({ children }) {
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://patnaitesmedia.com" />
         {/* Google Search Console */}
         <meta
           name="google-site-verification"
