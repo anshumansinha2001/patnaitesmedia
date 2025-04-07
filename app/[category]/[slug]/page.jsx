@@ -6,7 +6,7 @@ import { assets } from "@/assets/assets";
 import Link from "next/link";
 import parse from "html-react-parser";
 import SocialShare from "@/components/ArticleComponents/SocialShare";
-import PageNotFound from "@/components/ArticleComponents/PageNotFound";
+import PageNotFound from "@/app/not-found";
 import ReportBtn from "@/components/ArticleComponents/ReportBtn";
 import AdsBetweenCard from "@/components/AdsComponents/AdsBetweenCard";
 import AdsBottomCard from "@/components/AdsComponents/AdsBottomCard";
