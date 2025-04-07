@@ -63,7 +63,6 @@ export default function RootLayout({ children }) {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
-        <link rel="manifest" href="/site.webmanifest" />
         {/* Google Search Console */}
         <meta
           name="google-site-verification"
