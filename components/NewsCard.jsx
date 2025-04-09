@@ -28,9 +28,15 @@ const NewsCard = ({ slug, image, title, description, category, updatedAt }) => {
       </div>
 
       <div className="p-5">
-        <h5 className="mb-2 text-lg font-medium tracking-tight text-gray-900">
-          {title.slice(0, 85).concat("...")}
-        </h5>
+        <Link
+          href={`/${category.toLowerCase()}/${slug}`}
+          className="hover:cursor-pointer"
+        >
+          <h3 className="mb-2 text-lg font-medium tracking-tight text-gray-900">
+            {title.slice(0, 85).concat("...")}
+          </h3>
+        </Link>
+
         <p className="mb-3 text-sm tracking-tight text-grey-700">
           {description
             .replace(/(<([^>]+)>)/gi, "")
